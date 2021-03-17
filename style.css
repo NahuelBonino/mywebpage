@@ -1,0 +1,36 @@
+
+@font-face {
+    font-family: 'MyWebFont';
+    src: url('font/Cavorting.woff');
+  }
+
+
+.background-header{
+
+ background: rgb(8,104,170);
+ background: linear-gradient(90deg, rgb(7, 108, 155) 0%, rgba(11,171,158,1) 100%, rgb(3, 230, 181) 100%);
+ height: 400px;
+
+}
+
+.img-perfil{
+    background:url("img/imagenperfil.png");
+    width: 300px;
+    height: 300px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    /*box-shadow: -5px 20px 15px 3px rgba(0, 0, 0, 0.4);*/
+}
+
+.texto-presentacion{
+
+    padding-left: 100px;
+    
+}
+
+.fondo_inst{
+
+ background: linear-gradient(90deg, rgb(7, 108, 155) 0%, rgba(11,171,158,1) 100%, rgb(3, 230, 181) 100%);
+ height: 400px;
+}
