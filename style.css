@@ -1,7 +1,7 @@
 
 @font-face {
     font-family: 'MyWebFont';
-    src: url('font/Cavorting.woff');
+    src: url('Cavorting.woff');
   }
 
 
@@ -13,15 +13,18 @@
 
 }
 
+
 .img-perfil{
-    background:url("img/imagenperfil.png");
-    width: 300px;
-    height: 300px;
+    background:url("imagenperfil.png");
+    width: 20rem;
+    height: 20rem;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
     /*box-shadow: -5px 20px 15px 3px rgba(0, 0, 0, 0.4);*/
 }
+
+.img-perfil:hover {-webkit-transform:scale(1.2);transform:scale(1.2);transition:all .5s ease-in-out;}
 
 .texto-presentacion{
 
@@ -29,8 +32,42 @@
     
 }
 
-.fondo_inst{
-
- background: linear-gradient(90deg, rgb(7, 108, 155) 0%, rgba(11,171,158,1) 100%, rgb(3, 230, 181) 100%);
- height: 400px;
+a{
+    text-decoration: none;
 }
+
+.fa-instagram:hover{
+    color: #ad1207;
+    cursor:pointer;
+}
+.fa-facebook:hover{
+    color: #ad1207;
+    cursor:pointer;
+}
+.fa-github:hover{
+    color: #ad1207;
+    cursor:pointer;
+}
+.fa-whatsapp:hover{
+    color: #ad1207;
+    cursor:pointer;
+}
+
+.container-md{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+}
+
+h2, h3{
+    color :  rgb(8,104,170);;
+ }
+ 
+ .img-globo{
+  max-height: 500px;
+  max-width: 100%;
+  height: auto;
+ }
+
+ 
