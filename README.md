@@ -1,4 +1,4 @@
-# Página persoal
+# Página personal
 Esta es mi página personal
 
 ## Herramientas
