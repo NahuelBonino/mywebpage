@@ -1,33 +1,43 @@
-# Sitio Web Personal - Mikaela Piva Salvagno
+# Portfolio Personal — Nahuel Bonino
 
-Sitio web personal profesional desarrollado para presentar mi perfil, experiencia y proyectos en las áreas de Marketing Digital y Administración.
+Sitio web personal profesional que presenta mi perfil, experiencia, proyectos y habilidades como Full Stack Developer y estudiante de Ingeniería en Computación.
 
-##  Contenido del Sitio
+## Contenido del sitio
 
-- **Acerca de mi**: Presentación profesional, formación y objetivos
-- **Experiencias**: Historial laboral en instituciones culturales y de salud
-- **Estudios**: Formación académica y certificaciones profesionales
-- **Habilidades**: Competencias administrativas, marketing digital, herramientas y habilidades personales
-- **Portfolio**: Proyectos realizados en diseño y marketing digital
-- **Contacto**: Información de contacto y formulario
+- **Hero**: Presentación principal con nombre, rol y CTAs
+- **Sobre mí**: Bio personal, motivación y estadísticas rápidas
+- **Proyectos**: Carousel de trabajo seleccionado (Ronda, Ingenia, 2Teams, Lista de Archivos, Globo)
+- **Experiencia**: Timeline de experiencia laboral (Sofis Solutions, Humana IT, Ingenia)
+- **Educación**: Formación académica en UdelaR
+- **Habilidades**: Stack tecnológico organizado por categoría
+- **Contacto**: Links a email, LinkedIn, GitHub y WhatsApp
 
-##  Tecnologías
+## Stack tecnológico
 
-- HTML5
-- CSS3
-- JavaScript
-- Template: Dimension by HTML5 UP
+- **Vite 8** — Build tool y dev server
+- **React 19** — UI library
+- **TypeScript** — Tipado estático
+- **Tailwind CSS v4** — Estilos utility-first
+- **pnpm** — Package manager
 
-##  Sobre Mi
+## Comandos
 
-Profesional formada en Marketing Digital y Comercio Electrónico, con experiencia administrativa y atención al cliente. Actualmente ampliando conocimientos en Análisis de Datos.
+```bash
+pnpm install     # Instalar dependencias
+pnpm dev         # Iniciar dev server
+pnpm build       # Build de producción
+pnpm preview     # Preview del build
+pnpm format      # Formatear código con oxfmt
+```
 
-##  Contacto
+## Contacto
 
-- **Email**: mikaelapiva@gmail.com
-- **LinkedIn**: [linkedin.com/in/mikaela-piva-25b699244/](https://linkedin.com/in/mikaela-piva-25b699244/)
-- **Ubicaci�n**: Montevideo, Uruguay
+- **Email**: [nahuelboninoa@gmail.com](mailto:nahuelboninoa@gmail.com)
+- **LinkedIn**: [linkedin.com/in/nahuel-bonino-acuña](https://www.linkedin.com/in/nahuel-bonino-acu%C3%B1a/)
+- **GitHub**: [@NahuelBonino](https://github.com/NahuelBonino)
+- **WhatsApp**: [095 458 701](https://api.whatsapp.com/send?phone=095458701)
+- **Ubicación**: Montevideo, Uruguay
 
 ---
 
-2025 Mikaela Piva Salvagno
+© 2026 Nahuel Bonino
