@@ -57,7 +57,7 @@ function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <div className="flex items-center gap-3">
       <div className="h-px w-8 bg-[#22D3EE]/50" />
-      <span className="text-[11px] font-mono tracking-[0.22em] text-[#22D3EE] uppercase">{children}</span>
+      <span className="text-[18px] font-mono tracking-[0.22em] text-[#22D3EE] uppercase">{children}</span>
     </div>
   )
 }
@@ -106,7 +106,7 @@ function Navbar() {
     >
       <div className="max-w-[1200px] mx-auto px-6 h-[64px] flex items-center justify-between">
         <a href="#" className="font-mono text-sm font-medium tracking-widest">
-          <span className="text-[#22D3EE]">NB</span>
+          <span className="text-[#22D3EE]">Naga</span>
           <span className="text-white/25">.</span>
           <span className="text-slate-500">dev</span>
         </a>
@@ -162,11 +162,6 @@ function Hero() {
       <div className="absolute bottom-1/3 left-[12%] w-1 h-1 rounded-full bg-[#22D3EE]/15" />
 
       <div className="relative z-10 max-w-[1200px] mx-auto px-6 flex flex-col items-center text-center">
-        {/* Status pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#34D399]/[0.08] border border-[#34D399]/20 text-[#34D399] text-[11px] font-mono font-medium tracking-widest mb-9">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#34D399] animate-pulse" />
-          Disponible para proyectos
-        </div>
 
         {/* Headline */}
         <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold text-white leading-[1.04] tracking-[-0.03em] mb-5">
@@ -253,14 +248,9 @@ function About() {
             <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#22D3EE]/25 to-[#34D399]/10 blur-sm opacity-70" />
             <div className="relative rounded-2xl overflow-hidden bg-[#0F172A] aspect-square ring-1 ring-white/[0.06]">
               <img
-                src="/foto2.jpeg"
+                src="/foto2.png"
                 alt="Nahuel Bonino"
                 className="w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement
-                  target.src =
-                    'https://images.unsplash.com/photo-1782069327238-c154984f06ac?w=500&h=500&fit=crop&auto=format'
-                }}
               />
               {/* Subtle overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/30 to-transparent" />
