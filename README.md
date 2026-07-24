@@ -1,10 +1,33 @@
-# Página personal
-Esta es mi página personal
+# Sitio Web Personal - Mikaela Piva Salvagno
 
-## Herramientas
-  - HTML
-  - CSS
-  - JS
+Sitio web personal profesional desarrollado para presentar mi perfil, experiencia y proyectos en las áreas de Marketing Digital y Administración.
 
-## Link
-[Página Personal](https://nahuelbonino.github.io/mywebpage/)
+##  Contenido del Sitio
+
+- **Acerca de mi**: Presentación profesional, formación y objetivos
+- **Experiencias**: Historial laboral en instituciones culturales y de salud
+- **Estudios**: Formación académica y certificaciones profesionales
+- **Habilidades**: Competencias administrativas, marketing digital, herramientas y habilidades personales
+- **Portfolio**: Proyectos realizados en diseño y marketing digital
+- **Contacto**: Información de contacto y formulario
+
+##  Tecnologías
+
+- HTML5
+- CSS3
+- JavaScript
+- Template: Dimension by HTML5 UP
+
+##  Sobre Mi
+
+Profesional formada en Marketing Digital y Comercio Electrónico, con experiencia administrativa y atención al cliente. Actualmente ampliando conocimientos en Análisis de Datos.
+
+##  Contacto
+
+- **Email**: mikaelapiva@gmail.com
+- **LinkedIn**: [linkedin.com/in/mikaela-piva-25b699244/](https://linkedin.com/in/mikaela-piva-25b699244/)
+- **Ubicaci�n**: Montevideo, Uruguay
+
+---
+
+2025 Mikaela Piva Salvagno
