@@ -2,6 +2,7 @@ node_modules/
 dist/
 .pnpm-store/
 .figma/
+assets/
 
 .env
 .env.local
