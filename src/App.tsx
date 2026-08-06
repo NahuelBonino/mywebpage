@@ -105,11 +105,6 @@ function Navbar() {
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-6 h-[64px] flex items-center justify-between">
-        <a href="#" className="font-mono text-sm font-medium tracking-widest">
-          <span className="text-[#22D3EE]">Naga</span>
-          <span className="text-white/25">.</span>
-          <span className="text-slate-500">dev</span>
-        </a>
 
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((l) => (
@@ -165,7 +160,6 @@ function Hero() {
 
         {/* Headline */}
         <h1 className="text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold text-white leading-[1.04] tracking-[-0.03em] mb-5">
-          Soy{' '}
           <span
             className="relative inline-block"
             style={{
@@ -736,22 +730,22 @@ const SKILLS = [
   {
     category: 'Databases',
     color: '#A78BFA',
-    items: ['PostgreSQL', 'MySQL', 'Supabase', 'TypeORM', 'SQL Avanzado'],
+    items: ['PostgreSQL', 'MySQL', 'Supabase', 'SQL Avanzado'],
   },
   {
     category: 'Tools & DevOps',
     color: '#FB923C',
-    items: ['Git', 'Docker', 'Jenkins', 'Postman', 'Redmine'],
+    items: ['Git', 'Docker', 'Jenkins', 'Postman'],
   },
   {
     category: 'Languages',
     color: '#F472B6',
-    items: ['JavaScript', 'TypeScript', 'Python', 'PHP', 'Kotlin'],
+    items: ['JavaScript', 'Python', 'PHP', 'Kotlin'],
   },
   {
     category: 'ORM & Data',
     color: '#60A5FA',
-    items: ['TypeORM', 'SQL Avanzado', 'PL/SQL'],
+    items: ['TypeORM', 'SQL Avanzado'],
   },
 ]
 
