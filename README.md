@@ -11,6 +11,7 @@ Sitio web personal profesional que presenta mi perfil, experiencia, proyectos y 
 - **Educación**: Formación académica en UdelaR
 - **Habilidades**: Stack tecnológico organizado por categoría
 - **Contacto**: Links a email, LinkedIn, GitHub y WhatsApp
+- **Chatbot**: Asistente flotante (position fixed) que conversa con los visitantes vía API
 
 ## Stack tecnológico
 
@@ -29,6 +30,41 @@ pnpm build       # Build de producción
 pnpm preview     # Preview del build
 pnpm format      # Formatear código con oxfmt
 ```
+
+## Chatbot
+
+El sitio incluye un chatbot flotante (esquina inferior derecha) que mantiene el historial de la conversación por sesión.
+
+### Configuración
+
+Copiá `.env.example` a `.env` y completá los valores:
+
+```bash
+VITE_CHATBOT_URL=https://TU-BACKEND/portfolio-chatbot/
+VITE_PORTFOLIO_TOKEN=TU-TOKEN-AQUI
+```
+
+### Contrato de la API
+
+Cada mensaje se envía con `POST` al endpoint configurado:
+
+```ts
+fetch(CHATBOT_URL, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${VITE_PORTFOLIO_TOKEN}`,
+  },
+  body: JSON.stringify({ historial, message }),
+})
+```
+
+Donde:
+
+- `historial` — array con toda la conversación de la sesión, en el formato `{ role: 'user' | 'assistant', content: string }`.
+- `message` — el mensaje actual del usuario (no incluido en `historial`).
+
+El componente acepta la respuesta en varios formatos (`response`, `reply`, `content`, `message`, `answer`, `text`, o anidada en `assistant`/`data`) y la agrega al historial de la sesión. Ajustá `extractAssistantText` en `src/Chatbot.tsx` si tu backend usa otro formato.
 
 ## Contacto
 

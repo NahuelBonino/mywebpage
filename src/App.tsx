@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react'
+import Chatbot from './Chatbot'
 
 // ── Icons ──────────────────────────────────────────────────────────────────
 
@@ -742,11 +743,6 @@ const SKILLS = [
     color: '#F472B6',
     items: ['JavaScript', 'Python', 'PHP', 'Kotlin'],
   },
-  {
-    category: 'ORM & Data',
-    color: '#60A5FA',
-    items: ['TypeORM', 'SQL Avanzado'],
-  },
 ]
 
 function Skills() {
@@ -912,6 +908,7 @@ export default function App() {
       <Skills />
       <Contact />
       <Footer />
+      <Chatbot />
     </div>
   )
 }
