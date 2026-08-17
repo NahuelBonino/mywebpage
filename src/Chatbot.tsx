@@ -85,9 +85,16 @@ export default function Chatbot() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showBeacon, setShowBeacon] = useState(true)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Al ingresar a la página, mostrar destellos de luz hacia los costados del botón (3 s)
+  useEffect(() => {
+    const t = window.setTimeout(() => setShowBeacon(false), 3000)
+    return () => window.clearTimeout(t)
+  }, [])
 
   // Autoscroll al final de la conversación
   useEffect(() => {
@@ -156,22 +163,38 @@ export default function Chatbot() {
   return (
     <>
       {/* Botón flotante (siempre visible, position fixed) */}
-      <button
-        type="button"
-        onClick={() => setIsOpen((v) => !v)}
-        aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
-        aria-expanded={isOpen}
-        className="fixed bottom-6 right-6 z-[100] grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-[#22D3EE] to-[#0EA5E9] text-[#05121f] shadow-[0_8px_30px_rgba(34,211,238,0.35)] ring-1 ring-white/20 transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_40px_rgba(34,211,238,0.55)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#22D3EE]/40"
-      >
-        {/* Halo pulsante */}
-        <span className="absolute inset-0 -z-10 rounded-full bg-[#22D3EE]/40 blur-md animate-pulse" aria-hidden="true" />
-        <span className="transition-transform duration-300" style={{ transform: isOpen ? 'rotate(90deg)' : 'none' }}>
-          {isOpen ? <CloseIcon size={24} /> : <ChatIcon size={24} />}
-        </span>
-        {!isOpen && (
-          <span className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#090D16] bg-emerald-400" aria-hidden="true" />
+      <div className="fixed bottom-6 right-6 z-[100]">
+        {/* Círculo alrededor del botón (se muestra 3 s al ingresar) */}
+        {showBeacon && (
+          <>
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 rounded-full border-2 border-[#22D3EE]/80 shadow-[0_0_18px_rgba(34,211,238,0.6)] animate-beacon-ring"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 rounded-full border border-[#22D3EE]/60 animate-beacon-ring [animation-delay:900ms]"
+            />
+          </>
         )}
-      </button>
+
+        <button
+          type="button"
+          onClick={() => setIsOpen((v) => !v)}
+          aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
+          aria-expanded={isOpen}
+          className="relative grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-[#22D3EE] to-[#0EA5E9] text-[#05121f] shadow-[0_8px_30px_rgba(34,211,238,0.35)] ring-1 ring-white/20 transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_40px_rgba(34,211,238,0.55)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#22D3EE]/40"
+        >
+          {/* Halo pulsante */}
+          <span className="absolute inset-0 -z-10 rounded-full bg-[#22D3EE]/40 blur-md animate-pulse" aria-hidden="true" />
+          <span className="transition-transform duration-300" style={{ transform: isOpen ? 'rotate(90deg)' : 'none' }}>
+            {isOpen ? <CloseIcon size={24} /> : <ChatIcon size={24} />}
+          </span>
+          {!isOpen && (
+            <span className="absolute -top-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-[#090D16] bg-emerald-400" aria-hidden="true" />
+          )}
+        </button>
+      </div>
 
       {/* Panel del chat */}
       {isOpen && (
