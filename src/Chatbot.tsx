@@ -85,16 +85,9 @@ export default function Chatbot() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [showBeacon, setShowBeacon] = useState(true)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-
-  // Al ingresar a la página, mostrar destellos de luz hacia los costados del botón (3 s)
-  useEffect(() => {
-    const t = window.setTimeout(() => setShowBeacon(false), 3000)
-    return () => window.clearTimeout(t)
-  }, [])
 
   // Autoscroll al final de la conversación
   useEffect(() => {
@@ -164,20 +157,6 @@ export default function Chatbot() {
     <>
       {/* Botón flotante (siempre visible, position fixed) */}
       <div className="fixed bottom-6 right-6 z-[100]">
-        {/* Círculo alrededor del botón (se muestra 3 s al ingresar) */}
-        {showBeacon && (
-          <>
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-full border-2 border-[#22D3EE]/80 shadow-[0_0_18px_rgba(34,211,238,0.6)] animate-beacon-ring"
-            />
-            <span
-              aria-hidden="true"
-              className="absolute inset-0 rounded-full border border-[#22D3EE]/60 animate-beacon-ring [animation-delay:900ms]"
-            />
-          </>
-        )}
-
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}

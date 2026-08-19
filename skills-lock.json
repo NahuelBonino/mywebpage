@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "clean-code-ts-react": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/clean-code-ts-react/SKILL.md",
+      "computedHash": "e776e0650512d1c6b1b6dcf94f2bdf702b77fbad2d950a6fa1b0f532bf22fe83"
+    },
+    "react-vite-expert": {
+      "source": "questfortech-investments/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "react-vite-expert/SKILL.md",
+      "computedHash": "df813e27fae6b3566de7742885239041c2de2e50cfbca11708a16e6e8cf9e65b"
+    },
+    "vercel-composition-patterns": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/composition-patterns/SKILL.md",
+      "computedHash": "575757e3e25761c8c562d6e395d29f0b76c98b1273c0bd72d88e6ab1bc9c7d42"
+    }
+  }
+}
