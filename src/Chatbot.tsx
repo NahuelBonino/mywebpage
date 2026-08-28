@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { ThinkingOrb } from 'thinking-orbs'
 
 // ── Config (sobrescribí estas variables en un archivo .env) ───────────────
 const CHATBOT_URL = import.meta.env.VITE_CHATBOT_URL ?? 'https://TU-BACKEND/portfolio-chatbot/'
@@ -36,19 +37,6 @@ function CloseIcon({ size = 18 }: { size?: number }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
-    </svg>
-  )
-}
-
-function BotIcon({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 8V4H8" />
-      <rect width="16" height="12" x="4" y="8" rx="2" />
-      <path d="M2 14h2" />
-      <path d="M20 14h2" />
-      <path d="M15 13v2" />
-      <path d="M9 13v2" />
     </svg>
   )
 }
@@ -184,13 +172,16 @@ export default function Chatbot() {
           className="fixed bottom-24 right-6 z-[99] flex h-[min(600px,calc(100dvh-7.5rem))] w-[calc(100vw-3rem)] max-w-[380px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0B1120]/95 shadow-[0_25px_80px_rgba(0,0,0,0.6)] backdrop-blur-xl animate-chat-in origin-bottom-right"
         >
           {/* Header */}
-          <header className="flex items-center gap-3 border-b border-white/[0.07] bg-gradient-to-r from-[#0EA5E9]/15 to-[#22D3EE]/5 px-4 py-3.5">
-            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#22D3EE]/10 text-[#22D3EE] ring-1 ring-[#22D3EE]/30">
-              <BotIcon size={20} />
+          <header
+            className="flex items-center gap-3 border-b border-[#22D3EE]/25 px-4 py-3.5"
+            style={{ backgroundImage: 'var(--texture-noise), var(--gradient-primary)' }}
+          >
+            <div className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-[#0B1120]/40 ring-1 ring-white/20">
+              <img src="/vintage-robot.png" alt="Asistente" className="h-full w-full object-cover" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-mono text-[13px] font-bold tracking-wide text-slate-100">Asistente de Nahuel</p>
-              <p className="flex items-center gap-1.5 text-[11px] text-slate-400">
+              <p className="font-mono text-[13px] font-bold tracking-wide text-white">Asistente de Nahuel</p>
+              <p className="flex items-center gap-1.5 text-[11px] text-white/75">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
                 Online · responde en segundos
               </p>
@@ -228,13 +219,9 @@ export default function Chatbot() {
             ))}
 
             {isLoading && (
-              <div className="flex justify-start">
-                <div className="flex items-center gap-1.5 rounded-2xl rounded-bl-md border border-white/[0.06] bg-white/[0.05] px-4 py-3">
-                  <span className="h-2 w-2 rounded-full bg-[#22D3EE] animate-typing" />
-                  <span className="h-2 w-2 rounded-full bg-[#22D3EE] animate-typing [animation-delay:150ms]" />
-                  <span className="h-2 w-2 rounded-full bg-[#22D3EE] animate-typing [animation-delay:300ms]" />
-                  <span className="sr-only">Escribiendo…</span>
-                </div>
+              <div className="flex justify-center py-3">
+                <ThinkingOrb state="connecting" size={64} speed={0.8} theme="dark" />
+                <span className="sr-only">Escribiendo…</span>
               </div>
             )}
 

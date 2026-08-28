@@ -1,5 +1,3 @@
-// ── Iconos SVG compartidos ─────────────────────────────────────────────────
-
 type IconProps = {
   size?: number
 }

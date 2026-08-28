@@ -1,11 +1,43 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import ProjectCard, { type Project } from './ProjectCard'
-import { ChevronLeftIcon, ChevronRightIcon } from './icons'
-import { SectionLabel } from './ui'
+import { useState } from 'react'
+import { ExternalLink } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import CardCarousel from './CardCarousel'
+import { Badge, SectionLabel } from './ui'
 
 // ── Datos ──────────────────────────────────────────────────────────────────
 
+interface Project {
+  title: string
+  subtitle: string
+  image: string
+  tags: readonly string[]
+  meta?: string
+  ctaLabel: string
+  ctaHref: string
+  accent: string
+}
+
 const PROJECTS: Project[] = [
+  {
+    title: 'Globo',
+    subtitle: 'Juego para Android dividido en niveles donde se debe superar uno para avanzar al siguiente.',
+    image: '/globo2.png',
+    tags: ['Unity', 'C#', 'Android'],
+    meta: '2021',
+    ctaLabel: 'Ver Repo',
+    ctaHref: 'https://github.com/NahuelBonino/globo',
+    accent: '#F472B6',
+  },
+  {
+    title: 'Lista de Archivos',
+    subtitle: 'Utilidad de escritorio que lista los archivos de una carpeta especificada desde un dropdown.',
+    image: '/ListaArchivo.png',
+    tags: ['Java', 'Swing'],
+    meta: '2021',
+    ctaLabel: 'Ver Repo',
+    ctaHref: 'https://github.com/NahuelBonino/ListaArchivos-',
+    accent: '#FB923C',
+  },
   {
     title: 'Ronda',
     subtitle: 'Plataforma de Juegos Sociales en Tiempo Real',
@@ -36,79 +68,59 @@ const PROJECTS: Project[] = [
     ctaHref: 'https://github.com/NahuelBonino/2teams',
     accent: '#A78BFA',
   },
-  {
-    title: 'Lista de Archivos',
-    subtitle: 'Utilidad de escritorio que lista los archivos de una carpeta especificada desde un dropdown.',
-    image: '/ListaArchivo.png',
-    tags: ['Java', 'Swing'],
-    meta: '2021',
-    ctaLabel: 'Ver Repo',
-    ctaHref: 'https://github.com/NahuelBonino/ListaArchivos-',
-    accent: '#FB923C',
-  },
-  {
-    title: 'Globo',
-    subtitle: 'Juego para Android dividido en niveles donde se debe superar uno para avanzar al siguiente.',
-    image: '/globo2.png',
-    tags: ['Unity', 'C#', 'Android'],
-    meta: '2021',
-    ctaLabel: 'Ver Repo',
-    ctaHref: 'https://github.com/NahuelBonino/globo',
-    accent: '#F472B6',
-  },
 ]
 
-// ── Projects ───────────────────────────────────────────────────────────────
+// ── Proyecto CTA (botón pill estilo amicro: hover-link-card) ──────────────
+
+function ProjectCTA({ label, href, accent }: { label: string; href: string; accent: string }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <div className="relative flex flex-col items-center justify-center shrink-0">
+      {/* Tooltip flotante con la URL */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.9 }}
+            animate={{ opacity: 1, y: -8, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+            className="absolute -top-9 px-2.5 py-1 rounded-lg bg-neutral-900 border border-white/15 text-[10px] font-mono shadow-xl whitespace-nowrap z-20 pointer-events-none"
+            style={{ color: accent }}
+          >
+            {href}
+            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-900 border-r border-b border-white/15 rotate-45" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Botón pill */}
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        whileHover={{ scale: 1.05, y: -2 }}
+        whileTap={{ scale: 0.96 }}
+        className="flex items-center gap-2 px-5 py-2.5 rounded-full border text-xs font-semibold shadow-md transition-shadow duration-200 no-underline cursor-pointer"
+        style={{
+          color: accent,
+          borderColor: `${accent}40`,
+          backgroundColor: `${accent}12`,
+        }}
+      >
+        <span>{label}</span>
+        <ExternalLink size={13} />
+      </motion.a>
+    </div>
+  )
+}
+
 
 export default function Projects() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [isAtStart, setIsAtStart] = useState(true)
-  const [isAtEnd, setIsAtEnd] = useState(false)
-
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    const scrollLeft = el.scrollLeft
-    const firstChild = el.children[0] as HTMLElement | undefined
-    const cardWidth = firstChild?.clientWidth ?? 1
-    const gap = 24
-    const step = cardWidth + gap
-    const idx = Math.round(scrollLeft / step)
-    setActiveIndex(Math.max(0, Math.min(idx, PROJECTS.length - 1)))
-    setIsAtStart(scrollLeft < 10)
-    setIsAtEnd(scrollLeft + el.clientWidth >= el.scrollWidth - 10)
-  }, [])
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-    el.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    window.addEventListener('resize', handleScroll)
-    return () => {
-      el.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
-    }
-  }, [handleScroll])
-
-  const scrollTo = (index: number) => {
-    const el = scrollRef.current
-    if (!el) return
-    const firstChild = el.children[0] as HTMLElement | undefined
-    const cardWidth = firstChild?.clientWidth ?? 0
-    const gap = 24
-    el.scrollTo({ left: (cardWidth + gap) * index, behavior: 'smooth' })
-  }
-
-  const scrollByOffset = (dir: 1 | -1) => {
-    const el = scrollRef.current
-    if (!el) return
-    const firstChild = el.children[0] as HTMLElement | undefined
-    const cardWidth = firstChild?.clientWidth ?? 0
-    const gap = 24
-    el.scrollBy({ left: (cardWidth + gap) * dir, behavior: 'smooth' })
-  }
+  const [activeIndex, setActiveIndex] = useState(2)
+  const active = PROJECTS[activeIndex]
 
   return (
     <section id="proyectos" className="py-28 bg-[#060A12]">
@@ -120,61 +132,44 @@ export default function Projects() {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Left arrow */}
-          <button
-            onClick={() => scrollByOffset(-1)}
-            disabled={isAtStart}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 w-11 h-11 rounded-full bg-[#0F172A]/90 backdrop-blur border border-white/[0.08] hidden md:flex items-center justify-center text-slate-400 hover:text-white hover:border-white/[0.18] disabled:opacity-0 disabled:pointer-events-none transition-all duration-300 shadow-lg shadow-black/40"
-            aria-label="Proyecto anterior"
-          >
-            <ChevronLeftIcon />
-          </button>
+        <div className="h-[340px] md:h-[380px]">
+          <CardCarousel
+            images={PROJECTS.map((p) => ({ src: p.image, title: p.title }))}
+            activeIndex={activeIndex}
+            onActiveChange={setActiveIndex}
+          />
+        </div>
 
-          {/* Right arrow */}
-          <button
-            onClick={() => scrollByOffset(1)}
-            disabled={isAtEnd}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 w-11 h-11 rounded-full bg-[#0F172A]/90 backdrop-blur border border-white/[0.08] hidden md:flex items-center justify-center text-slate-400 hover:text-white hover:border-white/[0.18] disabled:opacity-0 disabled:pointer-events-none transition-all duration-300 shadow-lg shadow-black/40"
-            aria-label="Siguiente proyecto"
-          >
-            <ChevronRightIcon />
-          </button>
+        <div
+          className="relative overflow-hidden mt-12 rounded-2xl bg-[#0F172A] border border-white/[0.06] p-8 md:p-10 transition-colors duration-500 hover:border-white/[0.12]"
+          style={{
+            backgroundImage: `radial-gradient(ellipse 80% 90% at 100% 100%, ${active.accent}33 0%, transparent 60%)`,
+          }}
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <h3 className="text-2xl font-bold text-white leading-snug">{active.title}</h3>
+              {active.meta && (
+                <span className="text-[11px] text-slate-600 font-mono mt-1 block">{active.meta}</span>
+              )}
+            </div>
 
-          {/* Carousel */}
-          <div
-            ref={scrollRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-6 px-6 md:mx-0 md:px-0"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {PROJECTS.map((p) => (
-              <div
-                key={p.title}
-                className="snap-start shrink-0 w-[calc(100%-0px)] md:w-[calc(50%-12px)] h-[510px]"
-              >
-                <ProjectCard {...p} />
-              </div>
-            ))}
+            <ProjectCTA label={active.ctaLabel} href={active.ctaHref} accent={active.accent} />
           </div>
 
-          {/* Dots */}
-          <div className="flex items-center justify-center gap-2 mt-8">
-            {PROJECTS.map((p, i) => (
-              <button
-                key={p.title}
-                onClick={() => scrollTo(i)}
-                className="group/dot p-1.5"
-                aria-label={`Ir a ${p.title}`}
+          <p className="text-slate-400 text-[14px] leading-relaxed mt-3 max-w-2xl">{active.subtitle}</p>
+
+          <div className="flex flex-wrap gap-1.5 mt-5">
+            {active.tags.map((t) => (
+              <Badge
+                key={t}
+                color={active.accent}
+                bgColor={`${active.accent}1f`}
+                borderColor={`${active.accent}52`}
+                className="text-[11px]"
               >
-                <span
-                  className="block rounded-full transition-all duration-300"
-                  style={{
-                    width: i === activeIndex ? '24px' : '8px',
-                    height: '8px',
-                    backgroundColor: i === activeIndex ? p.accent : 'rgba(255,255,255,0.12)',
-                  }}
-                />
-              </button>
+                {t}
+              </Badge>
             ))}
           </div>
         </div>

@@ -1,7 +1,6 @@
 import { Card, type CardVariant } from './Card'
 import { Badge, SectionLabel } from './ui'
 
-// ── Datos ──────────────────────────────────────────────────────────────────
 
 interface ExperienceItem {
   role: string
@@ -23,7 +22,7 @@ const EXPERIENCE: ExperienceItem[] = [
       'Campus Ceibal, Mi Cuenta Ceibal, Censo Agropecuario, Ceibal Kids.',
     ],
     tech: ['Next.js', 'Vue.js', 'Node.js', 'NestJS', 'Laravel'],
-    accent: '#ffffff',
+    accent: '#6EE7B7',
     variant: 'success',
   },
   {
@@ -35,8 +34,8 @@ const EXPERIENCE: ExperienceItem[] = [
       'Integración de APIs REST/SOAP en entorno hospitalario con Docker y Jenkins.',
     ],
     tech: ['AngularJS', 'Ruby on Rails', 'PostgreSQL', 'Docker', 'Jenkins'],
-    accent: '#ffffff',
-    variant: 'success',
+    accent: '#38BDF8',
+    variant: 'info',
   },
   {
     role: 'Help Desk / Developer Support',
@@ -48,12 +47,11 @@ const EXPERIENCE: ExperienceItem[] = [
       'Procesamiento de datos con scripts de bash.'
     ],
     tech: ['PHP', 'Scripts de Bash', 'SQL'],
-    accent: '#ffffff',
-    variant: 'success',
+    accent: '#67E8F9',
+    variant: 'primary',
   },
 ]
 
-// ── Experience ─────────────────────────────────────────────────────────────
 
 export default function Experience() {
   return (
@@ -62,24 +60,11 @@ export default function Experience() {
         <SectionLabel>Experiencia Laboral</SectionLabel>
 
         <div className="mt-14 relative">
-          {/* Timeline rail */}
           <div className="absolute left-[10px] top-4 bottom-4 w-px bg-gradient-to-b from-[#22D3EE]/35 via-[#34D399]/20 to-transparent hidden md:block" />
 
           <div className="space-y-6">
             {EXPERIENCE.map((exp, i) => (
               <div key={i} className="relative md:pl-10 group">
-                {/* Timeline dot */}
-                <div
-                  className="absolute left-0 top-[22px] w-[20px] h-[20px] rounded-full border-2 bg-[#090D16] items-center justify-center hidden md:flex transition-all duration-300 group-hover:scale-110"
-                  style={{
-                    borderColor: `${exp.accent}50`,
-                  }}
-                >
-                  <div
-                    className="w-[7px] h-[7px] rounded-full transition-colors duration-300"
-                    style={{ backgroundColor: `${exp.accent}70` }}
-                  />
-                </div>
 
                 <Card
                   variant={exp.variant}

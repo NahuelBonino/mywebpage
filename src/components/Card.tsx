@@ -1,6 +1,17 @@
 import type { ReactNode } from 'react';
 
-export type CardVariant = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export type CardVariant =
+  | 'primary'
+  | 'success'
+  | 'info'
+  | 'teal'
+  | 'warning'
+  | 'danger'
+  | 'violet'
+  | 'orange'
+  | 'pink';
+
+export type CardSize = 'md' | 'sm';
 
 interface CardProps {
   title: string;
@@ -10,6 +21,7 @@ interface CardProps {
   icon?: ReactNode;
   href?: string;
   variant?: CardVariant;
+  size?: CardSize;
   accent?: string;
   children?: ReactNode;
 }
@@ -22,10 +34,17 @@ export function Card({
   icon,
   href,
   variant = 'success',
+  size = 'md',
   accent,
   children,
 }: CardProps) {
-  const className = variant === 'primary' ? 'card' : `card card--${variant}`;
+  const className = [
+    'card',
+    `card--${variant}`,
+    size === 'sm' ? 'card--compact' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   const content = (
     <>

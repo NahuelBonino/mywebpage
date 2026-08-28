@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { ExternalLinkIcon } from './icons'
 import { Badge } from './ui'
 
-// ── Tipos ──────────────────────────────────────────────────────────────────
 
 export interface Project {
   title: string
@@ -15,7 +14,6 @@ export interface Project {
   accent: string
 }
 
-// ── ProjectCard ────────────────────────────────────────────────────────────
 
 export default function ProjectCard({
   title,
@@ -35,7 +33,6 @@ export default function ProjectCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Image */}
       <div className="relative aspect-video overflow-hidden bg-[#0A1020] shrink-0">
         <img
           src={image}
@@ -44,7 +41,6 @@ export default function ProjectCard({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/10 to-transparent" />
 
-        {/* Accent glow on hover */}
         <div
           className="absolute inset-0 transition-opacity duration-500"
           style={{
@@ -54,7 +50,6 @@ export default function ProjectCard({
         />
       </div>
 
-      {/* Content */}
       <div className="p-6 flex-1 flex flex-col overflow-hidden">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>

@@ -1,8 +1,6 @@
 import { EmailIcon, GitHubIcon, LinkedInIcon, WhatsAppIcon } from './icons'
 import { SectionLabel } from './ui'
 
-// ── Datos ──────────────────────────────────────────────────────────────────
-
 const CONTACT_LINKS = [
   {
     label: 'Email',
@@ -10,6 +8,7 @@ const CONTACT_LINKS = [
     href: 'mailto:nahuelboninoa@gmail.com',
     icon: <EmailIcon size={20} />,
     color: '#22D3EE',
+    gradient: 'linear-gradient(166.9deg, #155E75 53.19%, #22D3EE 107.69%)',
   },
   {
     label: 'LinkedIn',
@@ -17,6 +16,7 @@ const CONTACT_LINKS = [
     href: 'https://www.linkedin.com/in/nahuel-bonino-acu%C3%B1a/',
     icon: <LinkedInIcon size={20} />,
     color: '#0A84FF',
+    gradient: 'linear-gradient(166.9deg, #075985 53.19%, #0A84FF 107.69%)',
   },
   {
     label: 'GitHub',
@@ -24,6 +24,7 @@ const CONTACT_LINKS = [
     href: 'https://github.com/NahuelBonino',
     icon: <GitHubIcon size={20} />,
     color: '#E2E8F0',
+    gradient: 'linear-gradient(166.9deg, #1E293B 53.19%, #475569 107.69%)',
   },
   {
     label: 'WhatsApp',
@@ -31,10 +32,10 @@ const CONTACT_LINKS = [
     href: 'https://api.whatsapp.com/send?phone=095458701',
     icon: <WhatsAppIcon size={20} />,
     color: '#25D366',
+    gradient: 'linear-gradient(166.9deg, #065F46 53.19%, #25D366 107.69%)',
   },
 ]
 
-// ── Contact ────────────────────────────────────────────────────────────────
 
 export default function Contact() {
   return (
@@ -59,19 +60,24 @@ export default function Contact() {
               href={c.href}
               target={c.href.startsWith('mailto') ? undefined : '_blank'}
               rel="noopener noreferrer"
-              className="group rounded-2xl bg-[#0F172A] border border-white/[0.06] p-5 hover:border-white/[0.13] hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4"
+              className="group rounded-2xl border p-5 hover:-translate-y-1.5 transition-all duration-300 flex flex-col gap-4"
+              style={{
+                backgroundImage: `var(--texture-noise), ${c.gradient}`,
+                borderColor: `${c.color}4d`,
+                ['--card-accent' as string]: c.color,
+              }}
             >
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300"
-                style={{ backgroundColor: `${c.color}12`, color: c.color }}
+                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ring-1 ring-white/10 transition-colors duration-300"
+                style={{ backgroundColor: 'rgba(0,0,0,0.28)', color: c.color }}
               >
                 {c.icon}
               </div>
               <div className="min-w-0">
-                <div className="text-[10px] text-slate-600 font-mono tracking-widest mb-1 uppercase">
+                <div className="text-[10px] text-white/55 font-mono tracking-widest mb-1 uppercase">
                   {c.label}
                 </div>
-                <div className="text-[13px] text-slate-400 font-medium group-hover:text-white transition-colors duration-200 break-all leading-snug">
+                <div className="text-[13px] text-white/85 font-medium group-hover:text-white transition-colors duration-200 break-all leading-snug">
                   {c.value}
                 </div>
               </div>

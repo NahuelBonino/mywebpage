@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-// ── Navbar ─────────────────────────────────────────────────────────────────
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)

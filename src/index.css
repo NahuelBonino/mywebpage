@@ -2,8 +2,8 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-family-sans: "Space Grotesk", sans-serif;
-  --font-family-mono: "JetBrains Mono", monospace;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   --animate-chat-in: chat-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-typing: typing 1.1s ease-in-out infinite;
@@ -46,6 +46,14 @@
 
   /* Gradientes y texturas */
   --gradient-emerald-city-accessible: linear-gradient(166.9deg, #0d5941 53.19%, #00bae2 107.69%);
+  --gradient-primary: linear-gradient(166.9deg, #155E75 53.19%, #22D3EE 107.69%);
+  --gradient-info: linear-gradient(166.9deg, #075985 53.19%, #0EA5E9 107.69%);
+  --gradient-teal: linear-gradient(166.9deg, #134E4A 53.19%, #2DD4BF 107.69%);
+  --gradient-warning: linear-gradient(166.9deg, #92400E 53.19%, #F59E0B 107.69%);
+  --gradient-danger: linear-gradient(166.9deg, #9F1239 53.19%, #F43F5E 107.69%);
+  --gradient-violet: linear-gradient(166.9deg, #4C1D95 53.19%, #A78BFA 107.69%);
+  --gradient-orange: linear-gradient(166.9deg, #9A3412 53.19%, #FB923C 107.69%);
+  --gradient-pink: linear-gradient(166.9deg, #831843 53.19%, #F472B6 107.69%);
   --texture-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.18'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 
   /* Primary (cyan) */
@@ -81,6 +89,17 @@
   --color-info-contrast-background: #F0F9FF;
   --color-info-contrast-foreground: #0C4A6E;
 
+  /* Teal */
+  --color-teal: #2DD4BF;
+  --color-teal-dark: #14B8A6;
+  --color-teal-darker: #0D9488;
+  --color-teal-darkest: #115E59;
+  --color-teal-light: #5EEAD4;
+  --color-teal-lighter: #99F6E4;
+  --color-teal-lightest: #CCFBF1;
+  --color-teal-contrast-background: #F0FDFA;
+  --color-teal-contrast-foreground: #134E4A;
+
   /* Warning (amber) */
   --color-warning: #F59E0B;
   --color-warning-dark: #D97706;
@@ -102,6 +121,39 @@
   --color-danger-lightest: #FECDD3;
   --color-danger-contrast-background: #FFF1F2;
   --color-danger-contrast-foreground: #881337;
+
+  /* Violet */
+  --color-violet: #A78BFA;
+  --color-violet-dark: #8B5CF6;
+  --color-violet-darker: #7C3AED;
+  --color-violet-darkest: #5B21B6;
+  --color-violet-light: #C4B5FD;
+  --color-violet-lighter: #DDD6FE;
+  --color-violet-lightest: #EDE9FE;
+  --color-violet-contrast-background: #F5F3FF;
+  --color-violet-contrast-foreground: #4C1D95;
+
+  /* Orange */
+  --color-orange: #FB923C;
+  --color-orange-dark: #F97316;
+  --color-orange-darker: #EA580C;
+  --color-orange-darkest: #C2410C;
+  --color-orange-light: #FDBA74;
+  --color-orange-lighter: #FED7AA;
+  --color-orange-lightest: #FFEDD5;
+  --color-orange-contrast-background: #FFF7ED;
+  --color-orange-contrast-foreground: #7C2D12;
+
+  /* Pink */
+  --color-pink: #F472B6;
+  --color-pink-dark: #EC4899;
+  --color-pink-darker: #DB2777;
+  --color-pink-darkest: #BE185D;
+  --color-pink-light: #F9A8D4;
+  --color-pink-lighter: #FBCFE8;
+  --color-pink-lightest: #FCE7F3;
+  --color-pink-contrast-background: #FDF2F8;
+  --color-pink-contrast-foreground: #9D174D;
 }
 
 html {
@@ -110,14 +162,14 @@ html {
 }
 
 body {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-text);
 }
 
 code,
 pre {
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
 }
 
 ::-webkit-scrollbar {
@@ -144,14 +196,15 @@ pre {
   text-decoration: none;
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 }
 
 .card:hover {
   border-color: var(--card-accent, var(--color-primary-light));
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  transform: translateY(-6px);
 }
 
 .card__icon {
@@ -228,4 +281,156 @@ pre {
   --card-accent: var(--color-success-light);
   --card-icon-bg: var(--color-success-light);
   --card-icon-color: var(--color-success-dark);
+}
+
+.card--primary {
+  background-image: var(--texture-noise), var(--gradient-primary);
+  --card-border: var(--color-primary-light);
+  --card-accent: var(--color-primary-light);
+  --card-icon-bg: var(--color-primary-light);
+  --card-icon-color: var(--color-primary-dark);
+}
+
+.card--info {
+  background-image: var(--texture-noise), var(--gradient-info);
+  --card-border: var(--color-info-light);
+  --card-accent: var(--color-info-light);
+  --card-icon-bg: var(--color-info-light);
+  --card-icon-color: var(--color-info-dark);
+}
+
+.card--teal {
+  background-image: var(--texture-noise), var(--gradient-teal);
+  --card-border: var(--color-teal-light);
+  --card-accent: var(--color-teal-light);
+  --card-icon-bg: var(--color-teal-light);
+  --card-icon-color: var(--color-teal-dark);
+}
+
+.card--warning {
+  background-image: var(--texture-noise), var(--gradient-warning);
+  --card-border: var(--color-warning-light);
+  --card-accent: var(--color-warning-light);
+  --card-icon-bg: var(--color-warning-light);
+  --card-icon-color: var(--color-warning-dark);
+}
+
+.card--danger {
+  background-image: var(--texture-noise), var(--gradient-danger);
+  --card-border: var(--color-danger-light);
+  --card-accent: var(--color-danger-light);
+  --card-icon-bg: var(--color-danger-light);
+  --card-icon-color: var(--color-danger-dark);
+}
+
+.card--violet {
+  background-image: var(--texture-noise), var(--gradient-violet);
+  --card-border: var(--color-violet-light);
+  --card-accent: var(--color-violet-light);
+  --card-icon-bg: var(--color-violet-light);
+  --card-icon-color: var(--color-violet-dark);
+}
+
+.card--orange {
+  background-image: var(--texture-noise), var(--gradient-orange);
+  --card-border: var(--color-orange-light);
+  --card-accent: var(--color-orange-light);
+  --card-icon-bg: var(--color-orange-light);
+  --card-icon-color: var(--color-orange-dark);
+}
+
+.card--pink {
+  background-image: var(--texture-noise), var(--gradient-pink);
+  --card-border: var(--color-pink-light);
+  --card-accent: var(--color-pink-light);
+  --card-icon-bg: var(--color-pink-light);
+  --card-icon-color: var(--color-pink-dark);
+}
+
+/* Variante compacta — ideal para grillas de 3 por fila (Educación, Skills) */
+.card--compact {
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.card--compact .card__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+}
+
+.card--compact .card__title {
+  font-size: 0.95rem;
+}
+
+.card--compact .card__subtitle {
+  font-size: 0.8rem;
+}
+
+.card--compact .card__description {
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.card--compact .card__meta {
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+}
+
+/* ── Hero: esfera blanca con estela ─────────────────────────────────────── */
+
+.sphere-core {
+  background: radial-gradient(circle at 32% 28%, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 72%, #64748b 100%);
+  box-shadow:
+    0 0 24px 6px rgba(226, 232, 240, 0.22),
+    0 0 80px 24px rgba(148, 163, 184, 0.12),
+    inset -12px -18px 32px rgba(71, 85, 105, 0.6);
+}
+
+.sphere-glow {
+  background: radial-gradient(circle, rgba(203, 213, 225, 0.22) 0%, rgba(148, 163, 184, 0.07) 45%, transparent 70%);
+}
+
+.sphere-trail {
+  background: linear-gradient(to top, rgba(226, 232, 240, 0.65) 0%, rgba(148, 163, 184, 0.28) 45%, rgba(148, 163, 184, 0) 100%);
+  filter: blur(8px);
+  transform-origin: bottom center;
+  animation: trail-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes trail-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scaleY(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.05);
+  }
+}
+
+.sphere-ring {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(203, 213, 225, 0.65) 30deg,
+    transparent 70deg,
+    rgba(148, 163, 184, 0.2) 120deg,
+    transparent 170deg,
+    rgba(203, 213, 225, 0.45) 220deg,
+    transparent 270deg,
+    rgba(148, 163, 184, 0.28) 320deg,
+    transparent 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 58%, #000 60%, #000 66%, transparent 68%);
+  mask: radial-gradient(circle, transparent 58%, #000 60%, #000 66%, transparent 68%);
+  animation: ring-spin 4s linear infinite;
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

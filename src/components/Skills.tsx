@@ -1,36 +1,49 @@
+import { Card, type CardVariant } from './Card'
+import SkillRadar from './SkillRadar'
 import { Badge, SectionLabel } from './ui'
 
 // ── Datos ──────────────────────────────────────────────────────────────────
 
-const SKILLS = [
+interface SkillCategory {
+  category: string
+  variant: CardVariant
+  color: string
+  items: string[]
+}
+
+const SKILLS: SkillCategory[] = [
   {
     category: 'Frontend',
+    variant: 'primary',
     color: '#22D3EE',
     items: ['React', 'Next.js', 'Vue.js', 'AngularJS', 'TypeScript', 'Tailwind CSS'],
   },
   {
     category: 'Backend',
+    variant: 'success',
     color: '#34D399',
     items: ['Node.js', 'NestJS', 'Ruby on Rails', 'Quarkus', 'APIs REST', 'Laravel'],
   },
   {
     category: 'Databases',
+    variant: 'violet',
     color: '#A78BFA',
     items: ['PostgreSQL', 'MySQL', 'Supabase', 'SQL Avanzado'],
   },
   {
     category: 'Tools & DevOps',
+    variant: 'orange',
     color: '#FB923C',
     items: ['Git', 'Docker', 'Jenkins', 'Postman'],
   },
   {
     category: 'Languages',
+    variant: 'pink',
     color: '#F472B6',
-    items: ['JavaScript', 'Python', 'PHP', 'Kotlin'],
+    items: ['JavaScript', 'Python', 'PHP', 'Java', 'Ruby'],
   },
 ]
 
-// ── Skills ─────────────────────────────────────────────────────────────────
 
 export default function Skills() {
   return (
@@ -43,27 +56,28 @@ export default function Skills() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {SKILLS.map((cat) => (
-            <div
-              key={cat.category}
-              className="rounded-2xl bg-[#0F172A] border border-white/[0.06] p-5 hover:border-white/[0.11] hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <div className="flex items-center gap-2.5 mb-4">
-                <div
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ backgroundColor: cat.color }}
-                />
-                <span className="text-[13px] font-semibold text-white">{cat.category}</span>
-              </div>
+            <Card key={cat.category} variant={cat.variant} size="sm" title={cat.category}>
               <div className="flex flex-wrap gap-1.5">
                 {cat.items.map((item) => (
-                  <Badge key={item} color={`${cat.color}bb`} bgColor={`${cat.color}09`} borderColor={`${cat.color}22`}>
+                  <Badge key={item} color="#ffffff" bgColor="#00000059" borderColor={`${cat.color}70`}>
                     {item}
                   </Badge>
                 ))}
               </div>
-            </div>
+            </Card>
           ))}
         </div>
+
+        <SkillRadar
+          items={[
+            { label: 'Frontend', value: 90 },
+            { label: 'Backend', value: 75 },
+            { label: 'DevOps', value: 40 },
+            { label: 'Algoritmos', value: 80 },
+            { label: 'Database', value: 70 },
+          ]}
+          accent="#A5F3FC"
+        />
       </div>
     </section>
   )
