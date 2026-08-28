@@ -150,6 +150,7 @@ export default function Hero() {
                 <div ref={sphereRef} className="absolute inset-0 opacity-0 pointer-events-none">
                     <div className="absolute -top-[110%] left-[8%] right-[8%] h-[130%] rounded-full sphere-trail" />
                     <div className="absolute -inset-[14%] rounded-full sphere-ring" />
+                    <div className="absolute -inset-[22%] rounded-full sphere-ring-accent" />
                     <div className="absolute -inset-[40%] rounded-full sphere-glow" />
                     <div className="absolute inset-0 rounded-full sphere-core" />
                 </div>
@@ -211,8 +212,11 @@ export default function Hero() {
                 </div>
             </div>
 
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-700 animate-bounce">
-                <ChevronDownIcon />
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5 select-none">
+                <span className="text-[10px] font-mono tracking-[0.35em] text-slate-500 uppercase">Scroll</span>
+                <span className="inline-flex text-[#22D3EE]/80 animate-bounce">
+                    <ChevronDownIcon size={18} />
+                </span>
             </div>
 
             <div className="absolute bottom-0 left-0 right-0 h-28" />

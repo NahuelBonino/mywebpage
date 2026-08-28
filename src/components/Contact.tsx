@@ -44,10 +44,6 @@ export default function Contact() {
         <SectionLabel>Contacto</SectionLabel>
 
         <div className="mt-6 mb-12">
-          <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold text-white leading-tight mb-3">
-            Trabajemos{' '}
-            <span className="text-[#22D3EE]">juntos</span>
-          </h2>
           <p className="text-slate-400 text-[15px] max-w-md leading-relaxed">
             Estoy disponible para proyectos freelance, posiciones full-time o simplemente una buena conversación técnica.
           </p>

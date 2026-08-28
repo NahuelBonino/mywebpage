@@ -23,6 +23,8 @@ interface CardProps {
   variant?: CardVariant;
   size?: CardSize;
   accent?: string;
+  headerAction?: ReactNode;
+  className?: string;
   children?: ReactNode;
 }
 
@@ -36,12 +38,15 @@ export function Card({
   variant = 'success',
   size = 'md',
   accent,
+  headerAction,
+  className,
   children,
 }: CardProps) {
-  const className = [
+  const classes = [
     'card',
     `card--${variant}`,
     size === 'sm' ? 'card--compact' : '',
+    className,
   ]
     .filter(Boolean)
     .join(' ');
@@ -62,7 +67,12 @@ export function Card({
             )}
           </div>
 
-          {meta && <span className="card__meta">{meta}</span>}
+          {(meta || headerAction) && (
+            <div className="card__header-actions">
+              {meta && <span className="card__meta">{meta}</span>}
+              {headerAction}
+            </div>
+          )}
         </div>
 
         {description && (
@@ -76,11 +86,11 @@ export function Card({
 
   if (href) {
     return (
-      <div className={className}>
+      <div className={classes}>
         {content}
       </div>
     );
   }
 
-  return <article className={className}>{content}</article>;
+  return <article className={classes}>{content}</article>;
 }

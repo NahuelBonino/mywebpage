@@ -275,6 +275,15 @@ pre {
   line-height: 1.4;
 }
 
+.card__header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
 .card--success {
   background-image: var(--texture-noise), var(--gradient-emerald-city-accessible);
   --card-border: var(--color-success-light);
@@ -347,7 +356,6 @@ pre {
   --card-icon-color: var(--color-pink-dark);
 }
 
-/* Variante compacta — ideal para grillas de 3 por fila (Educación, Skills) */
 .card--compact {
   flex-direction: column;
   gap: 0.75rem;
@@ -378,7 +386,22 @@ pre {
   padding: 0.2rem 0.6rem;
 }
 
-/* ── Hero: esfera blanca con estela ─────────────────────────────────────── */
+.card--project {
+  background-image: var(--texture-noise),
+    radial-gradient(120% 100% at 100% 0%, var(--project-accent, rgba(34, 211, 238, 0.1)) 0%, transparent 55%),
+    linear-gradient(160deg, #0B1220 0%, #0E1626 55%, #0A111E 100%);
+  --card-border: rgba(255, 255, 255, 0.09);
+  --card-accent: rgba(255, 255, 255, 0.09);
+  align-items: center;
+  min-height: 200px;
+  padding: 2.25rem 2rem;
+}
+
+.card--project:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 
 .sphere-core {
   background: radial-gradient(circle at 32% 28%, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 72%, #64748b 100%);
@@ -433,4 +456,23 @@ pre {
   to {
     transform: rotate(360deg);
   }
+}
+
+.sphere-ring-accent {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(34, 211, 238, 0.9) 40deg,
+    transparent 90deg,
+    rgba(34, 211, 238, 0.35) 140deg,
+    transparent 200deg,
+    rgba(52, 211, 153, 0.75) 265deg,
+    transparent 320deg,
+    rgba(34, 211, 238, 0.55) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 62%, #000 64%, #000 69%, transparent 71%);
+  mask: radial-gradient(circle, transparent 62%, #000 64%, #000 69%, transparent 71%);
+  animation: ring-spin 3s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.45));
 }

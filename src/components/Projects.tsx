@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+import { Card, type CardVariant } from './Card'
 import CardCarousel from './CardCarousel'
 import { Badge, SectionLabel } from './ui'
 
@@ -15,6 +16,7 @@ interface Project {
   ctaLabel: string
   ctaHref: string
   accent: string
+  variant: CardVariant
 }
 
 const PROJECTS: Project[] = [
@@ -27,6 +29,7 @@ const PROJECTS: Project[] = [
     ctaLabel: 'Ver Repo',
     ctaHref: 'https://github.com/NahuelBonino/globo',
     accent: '#F472B6',
+    variant: 'pink',
   },
   {
     title: 'Lista de Archivos',
@@ -37,6 +40,7 @@ const PROJECTS: Project[] = [
     ctaLabel: 'Ver Repo',
     ctaHref: 'https://github.com/NahuelBonino/ListaArchivos-',
     accent: '#FB923C',
+    variant: 'orange',
   },
   {
     title: 'Ronda',
@@ -47,6 +51,7 @@ const PROJECTS: Project[] = [
     ctaLabel: 'Live Demo',
     ctaHref: 'https://ronda-gamma.vercel.app/',
     accent: '#22D3EE',
+    variant: 'primary',
   },
   {
     title: 'Página web de Ingenia',
@@ -57,6 +62,7 @@ const PROJECTS: Project[] = [
     ctaLabel: 'Visit Site',
     ctaHref: 'https://www.ingenia.com.uy/',
     accent: '#34D399',
+    variant: 'success',
   },
   {
     title: '2Teams',
@@ -67,17 +73,16 @@ const PROJECTS: Project[] = [
     ctaLabel: 'Ver Repo',
     ctaHref: 'https://github.com/NahuelBonino/2teams',
     accent: '#A78BFA',
+    variant: 'violet',
   },
 ]
 
-// ── Proyecto CTA (botón pill estilo amicro: hover-link-card) ──────────────
 
 function ProjectCTA({ label, href, accent }: { label: string; href: string; accent: string }) {
   const [hovered, setHovered] = useState(false)
 
   return (
     <div className="relative flex flex-col items-center justify-center shrink-0">
-      {/* Tooltip flotante con la URL */}
       <AnimatePresence>
         {hovered && (
           <motion.div
@@ -85,7 +90,7 @@ function ProjectCTA({ label, href, accent }: { label: string; href: string; acce
             animate={{ opacity: 1, y: -8, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            className="absolute -top-9 px-2.5 py-1 rounded-lg bg-neutral-900 border border-white/15 text-[10px] font-mono shadow-xl whitespace-nowrap z-20 pointer-events-none"
+            className="absolute -top-9 z-50 px-2.5 py-1 rounded-lg bg-neutral-900 border border-white/15 text-[10px] font-mono shadow-xl whitespace-nowrap pointer-events-none"
             style={{ color: accent }}
           >
             {href}
@@ -105,13 +110,18 @@ function ProjectCTA({ label, href, accent }: { label: string; href: string; acce
         whileTap={{ scale: 0.96 }}
         className="flex items-center gap-2 px-5 py-2.5 rounded-full border text-xs font-semibold shadow-md transition-shadow duration-200 no-underline cursor-pointer"
         style={{
-          color: accent,
+          color: '#ffffff',
           borderColor: `${accent}40`,
           backgroundColor: `${accent}12`,
         }}
       >
         <span>{label}</span>
-        <ExternalLink size={13} />
+        <span
+          className="flex items-center justify-center w-5 h-5 rounded-full"
+          style={{ backgroundColor: accent }}
+        >
+          <ExternalLink size={11} color="#060A12" />
+        </span>
       </motion.a>
     </div>
   )
@@ -141,37 +151,33 @@ export default function Projects() {
         </div>
 
         <div
-          className="relative overflow-hidden mt-12 rounded-2xl bg-[#0F172A] border border-white/[0.06] p-8 md:p-10 transition-colors duration-500 hover:border-white/[0.12]"
-          style={{
-            backgroundImage: `radial-gradient(ellipse 80% 90% at 100% 100%, ${active.accent}33 0%, transparent 60%)`,
-          }}
+          className="mt-12"
+          style={{ ['--project-accent' as string]: `${active.accent}1f` }}
         >
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="min-w-0">
-              <h3 className="text-2xl font-bold text-white leading-snug">{active.title}</h3>
-              {active.meta && (
-                <span className="text-[11px] text-slate-600 font-mono mt-1 block">{active.meta}</span>
-              )}
+          <Card
+            variant={active.variant}
+            className="card--project"
+            title={active.title}
+            meta={active.meta}
+            description={active.subtitle}
+            headerAction={
+              <ProjectCTA label={active.ctaLabel} href={active.ctaHref} accent={active.accent} />
+            }
+          >
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {active.tags.map((t) => (
+                <Badge
+                  key={t}
+                  color={active.accent}
+                  bgColor={`${active.accent}1f`}
+                  borderColor={`${active.accent}52`}
+                  className="text-[11px]"
+                >
+                  {t}
+                </Badge>
+              ))}
             </div>
-
-            <ProjectCTA label={active.ctaLabel} href={active.ctaHref} accent={active.accent} />
-          </div>
-
-          <p className="text-slate-400 text-[14px] leading-relaxed mt-3 max-w-2xl">{active.subtitle}</p>
-
-          <div className="flex flex-wrap gap-1.5 mt-5">
-            {active.tags.map((t) => (
-              <Badge
-                key={t}
-                color={active.accent}
-                bgColor={`${active.accent}1f`}
-                borderColor={`${active.accent}52`}
-                className="text-[11px]"
-              >
-                {t}
-              </Badge>
-            ))}
-          </div>
+          </Card>
         </div>
       </div>
     </section>
