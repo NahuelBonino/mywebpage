@@ -80,16 +80,28 @@ export default function CardCarousel({
         </motion.div>
       </div>
 
-      {/* Controles */}
-      <div className="mt-6 px-2 py-1 flex items-center gap-2.5 justify-center text-neutral-400 rounded-full bg-[#0F172A]/80 backdrop-blur-md border border-white/10 shadow-md z-20">
-        <button
-          onClick={toPrev}
-          className="p-1.5 cursor-pointer hover:bg-white/10 rounded-full transition-colors border-0 bg-transparent text-neutral-300 hover:text-white"
-          aria-label="Proyecto anterior"
-        >
-          <ChevronLeftIcon size={16} />
-        </button>
+      <button
+        type="button"
+        onClick={toPrev}
+        disabled={index === 0}
+        className="absolute left-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#22D3EE]/45 bg-[#0F172A]/90 text-neutral-200 shadow-[0_0_24px_rgba(34,211,238,0.35)] backdrop-blur-md transition-all hover:scale-105 hover:bg-[#1E293B] hover:text-white hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 md:left-6"
+        aria-label="Proyecto anterior"
+      >
+        <ChevronLeftIcon size={24} />
+      </button>
 
+      <button
+        type="button"
+        onClick={toNext}
+        disabled={index === count - 1}
+        className="absolute right-3 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-[#22D3EE]/45 bg-[#0F172A]/90 text-neutral-200 shadow-[0_0_24px_rgba(34,211,238,0.35)] backdrop-blur-md transition-all hover:scale-105 hover:bg-[#1E293B] hover:text-white hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:scale-100 md:right-6"
+        aria-label="Siguiente proyecto"
+      >
+        <ChevronRightIcon size={24} />
+      </button>
+
+      {/* Controles */}
+      <div className="mt-6 flex items-center justify-center gap-1.5 rounded-full border border-white/10 bg-[#0F172A]/80 px-3 py-2 text-neutral-400 shadow-md backdrop-blur-md z-20">
         <div className="flex justify-center items-center gap-1.5">
           {images.map((_, i) => (
             <div
@@ -104,14 +116,6 @@ export default function CardCarousel({
             />
           ))}
         </div>
-
-        <button
-          onClick={toNext}
-          className="p-1.5 cursor-pointer hover:bg-white/10 rounded-full transition-colors border-0 bg-transparent text-neutral-300 hover:text-white"
-          aria-label="Siguiente proyecto"
-        >
-          <ChevronRightIcon size={16} />
-        </button>
       </div>
     </div>
   )

@@ -1,26 +1,37 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { SplitText } from 'gsap/SplitText'
 import { ChevronDownIcon, GitHubIcon, LinkedInIcon, WhatsAppIcon } from './icons'
 
 gsap.registerPlugin(ScrollTrigger)
 
+type RainbowConfig = {
+    text: string
+    duration?: number
+}
+
 gsap.registerEffect({
     name: 'rainbow',
-    effect: (targets:any, config:any) => {
-        let split = new SplitText(targets, { type: "words" })
-        let tl = gsap.timeline()
-        tl.from(split.words, {
-            opacity: 0,
-            y: -150,
+    effect: (targets: HTMLElement[], config: RainbowConfig) => {
+        const target = targets[0]
+        const textState = { characterCount: 0 }
+        const timeline = gsap.timeline()
+
+        if (!target) return timeline
+
+        target.textContent = ''
+        timeline.to(textState, {
+            characterCount: config.text.length,
             duration: config.duration,
-            stagger: 0.05,
+            ease: 'none',
+            onUpdate: () => {
+                target.textContent = config.text.slice(0, Math.round(textState.characterCount))
+            },
         })
-        .to(split.words, {color: gsap.utils.wrap(["#22D3EE", "#FFFF"]), stagger: 0.05})
-        return tl
+
+        return timeline
     },
-    defaults: { duration: 1 },
+    defaults: { duration: 1.4 },
     extendTimeline: true,
 })
 
@@ -28,16 +39,60 @@ gsap.registerEffect({
 
 export default function Hero() {
     const titleRef = useRef<HTMLHeadingElement>(null)
+    const firstNameTextRef = useRef<HTMLSpanElement>(null)
+    const surnameTextRef = useRef<HTMLSpanElement>(null)
+    const nameCursorRef = useRef<HTMLSpanElement>(null)
+    const specificationTextRef = useRef<HTMLSpanElement>(null)
+    const specificationCursorRef = useRef<HTMLSpanElement>(null)
     const sectionRef = useRef<HTMLElement>(null)
     const heroWrapRef = useRef<HTMLDivElement>(null)
     const heroImgRef = useRef<HTMLImageElement>(null)
     const sphereRef = useRef<HTMLDivElement>(null)
 
     useLayoutEffect(() => {
-        if (!titleRef.current) return
+        if (
+            !firstNameTextRef.current ||
+            !surnameTextRef.current ||
+            !nameCursorRef.current ||
+            !specificationTextRef.current ||
+            !specificationCursorRef.current
+        ) return
 
         const context = gsap.context(() => {
-            gsap.effects.rainbow(titleRef.current)
+            const timeline = gsap.timeline()
+
+            gsap.set(specificationCursorRef.current, { opacity: 0 })
+            timeline.add(
+                gsap.effects.rainbow(firstNameTextRef.current, {
+                    text: 'Nahuel',
+                    duration: 0.7,
+                }),
+            )
+            timeline.add(
+                gsap.effects.rainbow(surnameTextRef.current, {
+                    text: 'Bonino',
+                    duration: 0.7,
+                }),
+            )
+            timeline
+                .to(nameCursorRef.current, { opacity: 0, duration: 0.1 })
+                .to(specificationCursorRef.current, { opacity: 1, duration: 0.1 })
+                .add(
+                    gsap.effects.rainbow(specificationTextRef.current, {
+                        text: 'Desarrollador Full Stack · Analista de Sistemas',
+                        duration: 2.4,
+                    }),
+                )
+
+            timeline.to(specificationCursorRef.current, { opacity: 0, duration: 0.1 })
+            timeline.to(firstNameTextRef.current, { color: '#22D3EE', duration: 0.1 })
+
+            for (let blink = 0; blink < 3; blink += 1) {
+                timeline
+                    .to(firstNameTextRef.current, { opacity: 0, duration: 0.18 })
+                    .to(firstNameTextRef.current, { opacity: 1, duration: 0.18 })
+            }
+
         }, titleRef)
 
         return () => context.revert()
@@ -181,15 +236,14 @@ export default function Hero() {
 
             <div className="relative z-10 max-w-[1200px] mx-auto px-6 flex flex-col items-center text-center">
                 <h1 ref={titleRef} className="text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold text-white leading-[1.04] tracking-[-0.03em] mb-5">
-                    Nahuel
-                    {' '}
-                    Bonino
+                    <span ref={firstNameTextRef} />{' '}
+                    <span ref={surnameTextRef} />
+                    <span ref={nameCursorRef} className="ml-1 text-[#22D3EE]" aria-hidden="true">|</span>
                 </h1>
 
                 <p className="text-[clamp(1rem,2.5vw,1.35rem)] text-slate-400 font-medium tracking-wide mb-11">
-                    Desarrollador Full Stack
-                    <span className="text-white/15 mx-3">·</span>
-                    Analista de Sistemas
+                    <span ref={specificationTextRef} />
+                    <span ref={specificationCursorRef} className="ml-1 text-[#22D3EE]" aria-hidden="true">|</span>
                 </p>
 
                 <div className="flex items-center gap-7">
