@@ -9,16 +9,14 @@ export default function About() {
                 <div className="mt-14 grid md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr] gap-14 lg:gap-20 items-start">
                     <div className="relative">
                         <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#22D3EE]/25 to-[#34D399]/10 blur-sm opacity-70" />
-                        <div id="about-avatar" className="relative rounded-2xl overflow-hidden bg-[#0F172A] aspect-square ring-1 ring-white/[0.06]">
+                        <div id="about-avatar" className="relative rounded-2xl overflow-hidden bg-[#0F172A] ring-1 ring-white/[0.06]">
                             <img
                                 src="/foto2.png"
                                 alt="Nahuel Bonino"
                                 className="w-full h-full object-cover opacity-0"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/30 to-transparent" />
-                        </div>
-                        <div className="absolute -bottom-3 -right-3 w-14 h-14 rounded-xl bg-[#22D3EE]/[0.07] border border-[#22D3EE]/15" />
-                        <div className="absolute -top-3 -left-3 w-8 h-8 rounded-lg bg-[#34D399]/[0.07] border border-[#34D399]/15" />
+                        </div>                       
                     </div>
 
                     <div>
