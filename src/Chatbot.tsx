@@ -2,8 +2,8 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { ThinkingOrb } from 'thinking-orbs'
 
 // ── Config (sobrescribí estas variables en un archivo .env) ───────────────
-const CHATBOT_URL = import.meta.env.VITE_CHATBOT_URL ?? 'https://TU-BACKEND/portfolio-chatbot/'
-const PORTFOLIO_TOKEN = import.meta.env.VITE_PORTFOLIO_TOKEN ?? ''
+const CHATBOT_URL = import.meta.env.CHATBOT_URL ?? 'https://TU-BACKEND/portfolio-chatbot/'
+const PORTFOLIO_TOKEN = import.meta.env.PORTFOLIO_TOKEN ?? ''
 
 // ── Tipos ──────────────────────────────────────────────────────────────────
 type ChatRole = 'user' | 'assistant'

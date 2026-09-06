@@ -40,8 +40,8 @@ El sitio incluye un chatbot flotante (esquina inferior derecha) que mantiene el 
 Copiá `.env.example` a `.env` y completá los valores:
 
 ```bash
-VITE_CHATBOT_URL=https://TU-BACKEND/portfolio-chatbot/
-VITE_PORTFOLIO_TOKEN=TU-TOKEN-AQUI
+CHATBOT_URL=https://TU-BACKEND/portfolio-chatbot/
+PORTFOLIO_TOKEN=TU-TOKEN-AQUI
 ```
 
 ### Contrato de la API
@@ -53,7 +53,7 @@ fetch(CHATBOT_URL, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${VITE_PORTFOLIO_TOKEN}`,
+    'Authorization': `Bearer ${PORTFOLIO_TOKEN}`,
   },
   body: JSON.stringify({ historial, message }),
 })
