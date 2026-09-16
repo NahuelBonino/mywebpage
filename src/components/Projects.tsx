@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { ExternalLink } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ExternalLink, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Card, type CardVariant } from './Card'
 import CardCarousel from './CardCarousel'
@@ -90,7 +90,7 @@ function ProjectCTA({ label, href, accent }: { label: string; href: string; acce
             animate={{ opacity: 1, y: -8, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            className="absolute -top-9 z-50 px-2.5 py-1 rounded-lg bg-neutral-900 border border-white/15 text-[10px] font-mono shadow-xl whitespace-nowrap pointer-events-none"
+            className="absolute -top-9 z-50 max-w-[calc(100vw-2rem)] overflow-visible px-2.5 py-1 rounded-lg bg-neutral-900 border border-white/15 text-[10px] font-mono shadow-xl whitespace-normal break-all text-center pointer-events-none"
             style={{ color: accent }}
           >
             {href}
@@ -130,7 +130,24 @@ function ProjectCTA({ label, href, accent }: { label: string; href: string; acce
 
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(2)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const active = PROJECTS[activeIndex]
+
+  useEffect(() => {
+    if (!isModalOpen) return
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsModalOpen(false)
+    }
+
+    document.addEventListener('keydown', closeOnEscape)
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', closeOnEscape)
+      document.body.style.overflow = ''
+    }
+  }, [isModalOpen])
 
   return (
     <section id="proyectos" className="py-28 bg-[#060A12]">
@@ -147,39 +164,74 @@ export default function Projects() {
             images={PROJECTS.map((p) => ({ src: p.image, title: p.title }))}
             activeIndex={activeIndex}
             onActiveChange={setActiveIndex}
+            onImageClick={(index) => {
+              setActiveIndex(index)
+              setIsModalOpen(true)
+            }}
           />
         </div>
 
-        <div
-          className="mt-12"
-          style={{ ['--project-accent' as string]: `${active.accent}1f` }}
-        >
-          <Card
-            variant={active.variant}
-            className="card--project"
-            title={active.title}
-            meta={active.meta}
-            description={active.subtitle}
-            headerAction={
-              <ProjectCTA label={active.ctaLabel} href={active.ctaHref} accent={active.accent} />
-            }
-          >
-            <div className="flex flex-wrap gap-1.5 mt-4">
-              {active.tags.map((t) => (
-                <Badge
-                  key={t}
-                  color={active.accent}
-                  bgColor={`${active.accent}1f`}
-                  borderColor={`${active.accent}52`}
-                  className="text-[11px]"
-                >
-                  {t}
-                </Badge>
-              ))}
-            </div>
-          </Card>
-        </div>
       </div>
+
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-8 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Detalles de ${active.title}`}
+            onClick={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              className="relative w-full max-w-3xl"
+              style={{ ['--project-accent' as string]: `${active.accent}1f` }}
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 26 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Cerrar detalles del proyecto"
+                onClick={() => setIsModalOpen(false)}
+                className="cursor-pointer absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white/75 transition-colors hover:bg-black/70 hover:text-white"
+              >
+                <X size={18} />
+              </button>
+
+              <Card
+                variant={active.variant}
+                className="card--project max-h-[calc(100vh-4rem)] overflow-visible !flex-col !items-stretch !p-6 sm:!p-8"
+                title={active.title}
+                meta={active.meta}
+                description={active.subtitle}
+                headerAction={
+                  <ProjectCTA label={active.ctaLabel} href={active.ctaHref} accent={active.accent} />
+                }
+              >
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  {active.tags.map((t) => (
+                    <Badge
+                      key={t}
+                      color={active.accent}
+                      bgColor={`${active.accent}1f`}
+                      borderColor={`${active.accent}52`}
+                      className="text-[11px]"
+                    >
+                      {t}
+                    </Badge>
+                  ))}
+                </div>
+              </Card>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

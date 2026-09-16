@@ -32,6 +32,15 @@
     }
   }
 
+  @keyframes border-beam-dash {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: -400;
+    }
+  }
+
 }
 
 /* ── Paleta de colores ───────────────────────────────────────────────────── */
@@ -159,12 +168,19 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+  scrollbar-width: thin;
 }
 
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg);
   color: var(--color-text);
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: 0.18em;
 }
 
 code,
@@ -421,6 +437,29 @@ pre {
   transform-origin: bottom center;
   animation: trail-pulse 2.4s ease-in-out infinite;
 }
+
+.boton-chatbot{
+  border-radius: 50%;
+  background: var(--texture-noise), var(--gradient-primary);
+  cursor: pointer;
+}
+
+.button-chat{
+  border-radius: 50%;
+  background: var(--texture-noise), var(--gradient-primary);
+  cursor: pointer;
+}
+
+.button-chat:hover {
+  background: var(--texture-noise), var(--gradient-info);
+}
+
+.chat-bar{
+  background: var(--texture-noise), radial-gradient(120% 100% at 100% 0%, var(--project-accent, rgba(34, 211, 238, 0.1)) 0%, transparent 55%), linear-gradient(160deg, #0B1220 0%, #0E1626 55%, #0A111E 100%);
+  border-radius: 0px 0px 16px 16px;
+  cursor: default;
+}
+
 
 @keyframes trail-pulse {
   0%,

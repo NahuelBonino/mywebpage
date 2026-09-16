@@ -12,6 +12,7 @@ interface CardCarouselProps {
   images: CarouselItem[]
   activeIndex?: number
   onActiveChange?: (index: number) => void
+  onImageClick?: (index: number) => void
   className?: string
 }
 
@@ -19,6 +20,7 @@ export default function CardCarousel({
   images,
   activeIndex = 0,
   onActiveChange,
+  onImageClick,
   className = '',
 }: CardCarouselProps) {
   const count = images.length
@@ -67,13 +69,22 @@ export default function CardCarousel({
                 >
                   {item.title}
                 </div>
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  referrerPolicy="no-referrer"
-                  className="w-[430px] aspect-video object-cover rounded-xl shadow-lg border border-white/10 cursor-pointer"
-                  onClick={() => toSlide(i)}
-                />
+                <button
+                  type="button"
+                  aria-label={`Ver detalles de ${item.title}`}
+                  className="block w-[430px] cursor-pointer rounded-xl p-0 text-left"
+                  onClick={() => {
+                    toSlide(i)
+                    onImageClick?.(i)
+                  }}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.title}
+                    referrerPolicy="no-referrer"
+                    className="w-full aspect-video object-cover rounded-xl shadow-lg border border-white/10"
+                  />
+                </button>
               </motion.div>
             )
           })}

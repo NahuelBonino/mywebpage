@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[23px] font-mono tracking-[0.22em] text-[#FFFF] uppercase">{children}</span>
+      <span className="section-label text-[23px] text-[#FFFF] uppercase">{children}</span>
     </div>
   )
 }

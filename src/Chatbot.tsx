@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ThinkingOrb } from 'thinking-orbs'
+import Chat from './components/Chat'
 
-// ── Config (sobrescribí estas variables en un archivo .env) ───────────────
 const CHATBOT_URL = import.meta.env.CHATBOT_URL ?? 'https://TU-BACKEND/portfolio-chatbot/'
 const PORTFOLIO_TOKEN = import.meta.env.PORTFOLIO_TOKEN ?? ''
 
-// ── Tipos ──────────────────────────────────────────────────────────────────
 type ChatRole = 'user' | 'assistant'
 
 interface ChatMessage {
@@ -13,21 +12,11 @@ interface ChatMessage {
   content: string
 }
 
-// ── Icons ──────────────────────────────────────────────────────────────────
 
 function ChatIcon({ size = 24 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    </svg>
-  )
-}
-
-function SendIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="m22 2-7 20-4-9-9-4Z" />
-      <path d="M22 2 11 13" />
     </svg>
   )
 }
@@ -41,9 +30,6 @@ function CloseIcon({ size = 18 }: { size?: number }) {
   )
 }
 
-// ── Helpers ────────────────────────────────────────────────────────────────
-
-/** Extrae el texto de la respuesta del backend tolerando distintos formatos. */
 function extractAssistantText(data: unknown): string {
   if (typeof data === 'string' && data.trim()) return data
   if (data && typeof data === 'object') {
@@ -65,32 +51,19 @@ function extractAssistantText(data: unknown): string {
   return 'Lo siento, no pude procesar la respuesta del servidor.'
 }
 
-// ── Componente ─────────────────────────────────────────────────────────────
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [history, setHistory] = useState<ChatMessage[]>([])
-  const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
 
-  // Autoscroll al final de la conversación
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [history, isLoading, isOpen])
 
-  // Enfocar el input al abrir el chat
-  useEffect(() => {
-    if (isOpen) {
-      const t = window.setTimeout(() => inputRef.current?.focus(), 250)
-      return () => window.clearTimeout(t)
-    }
-  }, [isOpen])
-
-  // Cerrar con Escape
   useEffect(() => {
     if (!isOpen) return
     const onKey = (e: KeyboardEvent) => {
@@ -100,17 +73,13 @@ export default function Chatbot() {
     return () => window.removeEventListener('keydown', onKey)
   }, [isOpen])
 
-  const handleSend = async (e?: FormEvent) => {
-    e?.preventDefault()
-    const message = input.trim()
+  const handleSend = async (message: string) => {
     if (!message || isLoading) return
 
     const historial = history
     const userMsg: ChatMessage = { role: 'user', content: message }
 
-    // Mostrar el mensaje del usuario de inmediato
     setHistory((prev) => [...prev, userMsg])
-    setInput('')
     setIsLoading(true)
     setError(null)
 
@@ -143,14 +112,13 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Botón flotante (siempre visible, position fixed) */}
       <div className="fixed bottom-6 right-6 z-[100]">
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
           aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
           aria-expanded={isOpen}
-          className="relative grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-[#22D3EE] to-[#0EA5E9] text-[#05121f] shadow-[0_8px_30px_rgba(34,211,238,0.35)] ring-1 ring-white/20 transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_40px_rgba(34,211,238,0.55)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#22D3EE]/40"
+          className="boton-chatbot relative grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-[#22D3EE] to-[#0EA5E9] text-[#05121f] shadow-[0_8px_30px_rgba(34,211,238,0.35)] ring-1 ring-white/20 transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_40px_rgba(34,211,238,0.55)] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#22D3EE]/40"
         >
           {/* Halo pulsante */}
           <span className="absolute inset-0 -z-10 rounded-full bg-[#22D3EE]/40 blur-md animate-pulse" aria-hidden="true" />
@@ -163,7 +131,6 @@ export default function Chatbot() {
         </button>
       </div>
 
-      {/* Panel del chat */}
       {isOpen && (
         <section
           role="dialog"
@@ -183,20 +150,19 @@ export default function Chatbot() {
               <p className="font-mono text-[13px] font-bold tracking-wide text-white">Asistente de Nahuel</p>
               <p className="flex items-center gap-1.5 text-[11px] text-white/75">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                Online · responde en segundos
+                Online
               </p>
             </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Cerrar chat"
-              className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-white/[0.06] hover:text-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#22D3EE]/40"
+              className="cursor-pointer grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition-colors hover:bg-white/[0.06] hover:text-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#22D3EE]/40"
             >
               <CloseIcon size={16} />
             </button>
           </header>
 
-          {/* Mensajes */}
           <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 scrollbar-thin">
             {!hasMessages && (
               <div className="rounded-2xl rounded-bl-md border border-white/[0.06] bg-white/[0.04] px-4 py-3 text-[13px] leading-relaxed text-slate-300">
@@ -228,38 +194,17 @@ export default function Chatbot() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Error */}
           {error && (
             <div className="mx-4 mb-2 rounded-lg border border-rose-500/25 bg-rose-500/10 px-3 py-2 text-[12px] text-rose-300">
               {error}
             </div>
           )}
 
-          {/* Input */}
-          <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-white/[0.07] bg-[#0B1120] p-3">
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribí tu mensaje…"
-              autoComplete="off"
-              aria-label="Mensaje"
-              className="h-10 flex-1 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3.5 text-[13px] text-slate-100 placeholder:text-slate-500 transition-colors focus:border-[#22D3EE]/50 focus:outline-none focus:ring-2 focus:ring-[#22D3EE]/20"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || isLoading}
-              aria-label="Enviar mensaje"
-              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#22D3EE] text-[#05121f] transition-all duration-200 hover:bg-[#67e8f9] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#22D3EE]/40 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              {isLoading ? (
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#05121f]/30 border-t-[#05121f]" aria-hidden="true" />
-              ) : (
-                <SendIcon size={16} />
-              )}
-            </button>
-          </form>
+          <Chat
+            className="w-full max-w-none border-t border-white/[0.07] bg-[#0B1120] p-3"
+            isLoading={isLoading}
+            onSend={handleSend}
+          />
         </section>
       )}
     </>

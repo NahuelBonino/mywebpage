@@ -79,7 +79,7 @@ export default function Hero() {
                 .to(specificationCursorRef.current, { opacity: 1, duration: 0.1 })
                 .add(
                     gsap.effects.rainbow(specificationTextRef.current, {
-                        text: 'Desarrollador Full Stack · Analista de Sistemas',
+                        text: 'Desarrollador Full Stack · Analista en Computación',
                         duration: 2.4,
                     }),
                 )
