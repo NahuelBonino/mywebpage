@@ -1,79 +1,79 @@
-# Portfolio Personal — Nahuel Bonino
+# Portfolio Personal â€” Nahuel Bonino
 
-Sitio web personal profesional que presenta mi perfil, experiencia, proyectos y habilidades como Full Stack Developer y estudiante de Ingeniería en Computación.
+Sitio web personal profesional que presenta mi perfil, experiencia, proyectos y habilidades como Full Stack Developer y estudiante de IngenierÃ­a en ComputaciÃ³n.
 
 ## Contenido del sitio
 
-- **Hero**: Presentación principal con nombre, rol y CTAs
-- **Sobre mí**: Bio personal, motivación y estadísticas rápidas
+- **Hero**: PresentaciÃ³n principal con nombre, rol y CTAs
+- **Sobre mÃ­**: Bio personal, motivaciÃ³n y estadÃ­sticas rÃ¡pidas
 - **Proyectos**: Carousel de trabajo seleccionado (Ronda, Ingenia, 2Teams, Lista de Archivos, Globo)
 - **Experiencia**: Timeline de experiencia laboral (Sofis Solutions, Humana IT, Ingenia)
-- **Educación**: Formación académica en UdelaR
-- **Habilidades**: Stack tecnológico organizado por categoría
+- **EducaciÃ³n**: FormaciÃ³n acadÃ©mica en UdelaR
+- **Habilidades**: Stack tecnolÃ³gico organizado por categorÃ­a
 - **Contacto**: Links a email, LinkedIn, GitHub y WhatsApp
-- **Chatbot**: Asistente flotante (position fixed) que conversa con los visitantes vía API
+- **Chatbot**: Asistente flotante (position fixed) que conversa con los visitantes vÃ­a API
 
-## Stack tecnológico
+## Stack tecnolÃ³gico
 
-- **Vite 8** — Build tool y dev server
-- **React 19** — UI library
-- **TypeScript** — Tipado estático
-- **Tailwind CSS v4** — Estilos utility-first
-- **pnpm** — Package manager
+- **Vite 8** â€” Build tool y dev server
+- **React 19** â€” UI library
+- **TypeScript** â€” Tipado estÃ¡tico
+- **Tailwind CSS v4** â€” Estilos utility-first
+- **pnpm** â€” Package manager
 
 ## Comandos
 
 ```bash
 pnpm install     # Instalar dependencias
 pnpm dev         # Iniciar dev server
-pnpm build       # Build de producción
+pnpm build       # Build de producciÃ³n
 pnpm preview     # Preview del build
-pnpm format      # Formatear código con oxfmt
+pnpm format      # Formatear cÃ³digo con oxfmt
 ```
 
 ## Chatbot
 
-El sitio incluye un chatbot flotante (esquina inferior derecha) que mantiene el historial de la conversación por sesión.
+El sitio incluye un chatbot flotante (esquina inferior derecha) que mantiene el historial de la conversaciÃ³n por sesiÃ³n.
 
-### Configuración
+### Configuraci?n
 
-Copiá `.env.example` a `.env` y completá los valores:
+Configur? estas variables como secretos del entorno server-side (por ejemplo, en Vercel Project Settings). No las uses con el prefijo `VITE_` ni las expongas al frontend:
 
 ```bash
 CHATBOT_URL=https://TU-BACKEND/portfolio-chatbot/
 PORTFOLIO_TOKEN=TU-TOKEN-AQUI
 ```
 
+El frontend llama a `/api/chatbot`. La funci?n [`api/chatbot.js`](./api/chatbot.js) mantiene el token en el servidor y lo agrega al reenviar la solicitud al backend. Para desarrollo local con `pnpm dev`, Vite crea un proxy equivalente usando las variables privadas de `.env`; en producci?n, Vercel usa la funci?n serverless.
+
 ### Contrato de la API
 
-Cada mensaje se envía con `POST` al endpoint configurado:
+El navegador env?a `POST /api/chatbot` sin credenciales:
 
-```ts
-fetch(CHATBOT_URL, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${PORTFOLIO_TOKEN}`,
-  },
-  body: JSON.stringify({ historial, message }),
-})
+```json
+{
+  "historial": [{ "role": "user", "content": "Hola" }],
+  "message": "?Qu? proyectos ten?s?"
+}
 ```
+
+El proxy reenv?a la solicitud al endpoint configurado con el header privado `Authorization: Bearer ${PORTFOLIO_TOKEN}`.
 
 Donde:
 
-- `historial` — array con toda la conversación de la sesión, en el formato `{ role: 'user' | 'assistant', content: string }`.
-- `message` — el mensaje actual del usuario (no incluido en `historial`).
+- `historial` ? array con toda la conversaci?n de la sesi?n, en el formato `{ role: 'user' | 'assistant', content: string }`.
+- `message` ? el mensaje actual del usuario (no incluido en `historial`).
 
-El componente acepta la respuesta en varios formatos (`response`, `reply`, `content`, `message`, `answer`, `text`, o anidada en `assistant`/`data`) y la agrega al historial de la sesión. Ajustá `extractAssistantText` en `src/Chatbot.tsx` si tu backend usa otro formato.
+El componente acepta la respuesta en varios formatos (`response`, `reply`, `content`, `message`, `answer`, `text`, o anidada en `assistant`/`data`) y la agrega al historial de la sesi?n. Ajust? `extractAssistantText` en `src/Chatbot.tsx` si tu backend usa otro formato.
 
 ## Contacto
 
 - **Email**: [nahuelboninoa@gmail.com](mailto:nahuelboninoa@gmail.com)
-- **LinkedIn**: [linkedin.com/in/nahuel-bonino-acuña](https://www.linkedin.com/in/nahuel-bonino-acu%C3%B1a/)
+- **LinkedIn**: [linkedin.com/in/nahuel-bonino-acuÃ±a](https://www.linkedin.com/in/nahuel-bonino-acu%C3%B1a/)
 - **GitHub**: [@NahuelBonino](https://github.com/NahuelBonino)
 - **WhatsApp**: [095 458 701](https://api.whatsapp.com/send?phone=095458701)
-- **Ubicación**: Montevideo, Uruguay
+- **UbicaciÃ³n**: Montevideo, Uruguay
 
 ---
 
-© 2026 Nahuel Bonino
+Â© 2026 Nahuel Bonino

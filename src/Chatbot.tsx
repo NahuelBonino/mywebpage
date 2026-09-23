@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+﻿import { useEffect, useRef, useState } from 'react'
 import { ThinkingOrb } from 'thinking-orbs'
 import Chat from './components/Chat'
 
-const CHATBOT_URL = import.meta.env.CHATBOT_URL ?? 'https://TU-BACKEND/portfolio-chatbot/'
-const PORTFOLIO_TOKEN = import.meta.env.PORTFOLIO_TOKEN ?? ''
+const CHATBOT_URL = '/api/chatbot'
 
 type ChatRole = 'user' | 'assistant'
 
@@ -88,7 +87,6 @@ export default function Chatbot() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${PORTFOLIO_TOKEN}`,
         },
         body: JSON.stringify({ historial, message }),
       })
