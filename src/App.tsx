@@ -1,3 +1,4 @@
+import { Outlet, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,13 +9,15 @@ import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Chatbot from './Chatbot'
+import TermsPage from './pages/TermsPage'
+import useScrollToHash from './hooks/useScrollToHash'
 
-// ── App ────────────────────────────────────────────────────────────────────
+// ── Pages ──────────────────────────────────────────────────────────────────
 
-export default function App() {
+function HomePage() {
+  useScrollToHash()
   return (
-    <div className="bg-[#090D16] text-slate-100 font-sans antialiased">
-      <Navbar />
+    <>
       <Hero />
       <About />
       <Projects />
@@ -22,8 +25,32 @@ export default function App() {
       <Education />
       <Skills />
       <Contact />
-      <Footer />
       <Chatbot />
+    </>
+  )
+}
+
+// ── Layout ─────────────────────────────────────────────────────────────────
+
+function Layout() {
+  return (
+    <div className="bg-[#090D16] text-slate-100 font-sans antialiased">
+      <Navbar />
+      <Outlet />
+      <Footer />
     </div>
+  )
+}
+
+// ── App ────────────────────────────────────────────────────────────────────
+
+export default function App() {
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/terminos" element={<TermsPage />} />
+      </Route>
+    </Routes>
   )
 }

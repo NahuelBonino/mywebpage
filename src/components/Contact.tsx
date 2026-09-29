@@ -4,8 +4,8 @@ import { SectionLabel } from './ui'
 const CONTACT_LINKS = [
   {
     label: 'Email',
-    value: 'nahuelboninoa@gmail.com',
-    href: 'mailto:nahuelboninoa@gmail.com',
+    value: 'contacto@nahuelbonino.uy',
+    href: 'mailto:contacto@nahuelbonino.uy',
     icon: <EmailIcon size={20} />,
     color: '#22D3EE',
     gradient: 'linear-gradient(166.9deg, #155E75 53.19%, #22D3EE 107.69%)',
@@ -46,6 +46,7 @@ export default function Contact() {
         <div className="mt-6 mb-12">
           <p className="text-slate-400 text-[15px] max-w-md leading-relaxed">
             Estoy disponible para proyectos freelance, posiciones full-time o simplemente una buena conversación técnica.
+            Nahuel Bonino · Montevideo, Uruguay.
           </p>
         </div>
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 export default function Navbar() {
@@ -11,11 +12,11 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { href: '#sobre-mi', label: 'Sobre mí' },
-    { href: '#proyectos', label: 'Proyectos' },
-    { href: '#experiencia', label: 'Experiencia' },
-    { href: '#habilidades', label: 'Habilidades' },
-    { href: '#contacto', label: 'Contacto' },
+    { hash: '#sobre-mi', label: 'Sobre mí' },
+    { hash: '#proyectos', label: 'Proyectos' },
+    { hash: '#experiencia', label: 'Experiencia' },
+    { hash: '#habilidades', label: 'Habilidades' },
+    { hash: '#contacto', label: 'Contacto' },
   ]
 
   return (
@@ -30,13 +31,13 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
+            <Link
+              key={l.hash}
+              to={{ pathname: '/', hash: l.hash }}
               className="text-slate-500 hover:text-slate-200 text-[15px] font-medium tracking-wide transition-colors duration-200"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
