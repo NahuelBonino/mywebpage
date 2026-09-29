@@ -21,6 +21,16 @@ Sitio web personal profesional que presenta mi perfil, experiencia, proyectos y 
 - **Tailwind CSS v4** â€” Estilos utility-first
 - **pnpm** â€” Package manager
 
+## Compatibilidad de navegadores
+
+El build apunta a Chrome/Edge 80+, Firefox 78+ y Safari/iOS 13+. Vite compila
+JavaScript y minifica CSS con esos objetivos; `@vitejs/plugin-legacy` usa Babel
+para generar el bundle de respaldo y los polyfills necesarios.
+
+GSAP 3 tiene compatibilidad amplia, pero por sí solo no vuelve compatible a toda
+la aplicación: también importan los plugins usados y las APIs del navegador.
+Internet Explorer 11 no está soportado por React 19.
+
 ## Comandos
 
 ```bash

@@ -1,19 +1,23 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, type ProxyOptions } from 'vite'
 import react from '@vitejs/plugin-react'
+import legacy from '@vitejs/plugin-legacy'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 // Vite config — https://vitejs.dev/config/
+const browserTargets = ['chrome80', 'edge80', 'firefox78', 'safari13', 'ios13']
+const browserListTargets = ['chrome >= 80', 'edge >= 80', 'firefox >= 78', 'safari >= 13', 'ios >= 13']
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const emitSourcemaps = mode === 'development'
   const chatbotUrl = env.CHATBOT_URL ? new URL(env.CHATBOT_URL) : null
-  const chatbotProxy = chatbotUrl
+  const chatbotProxy: ProxyOptions | null = chatbotUrl
     ? {
         target: chatbotUrl.origin,
         changeOrigin: true,
         rewrite: () => `${chatbotUrl.pathname}${chatbotUrl.search}`,
-        configure: (proxy: { on: (event: string, listener: (request: { setHeader: (name: string, value: string) => void }) => void) => void }) => {
+        configure: (proxy) => {
           proxy.on('proxyReq', (request) => {
             if (env.PORTFOLIO_TOKEN) {
               request.setHeader('Authorization', `Bearer ${env.PORTFOLIO_TOKEN}`)
@@ -27,10 +31,18 @@ export default defineConfig(({ mode }) => {
     base: env.FIGMA_PUBLIC_URL ? `${env.FIGMA_PUBLIC_URL}/` : '/',
     envPrefix: ['VITE_'],
     build: {
+      cssTarget: browserTargets,
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
     },
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss(),
+      legacy({
+        targets: browserListTargets,
+        modernTargets: browserListTargets,
+      }),
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
