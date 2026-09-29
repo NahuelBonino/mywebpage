@@ -28,7 +28,6 @@ export default defineConfig(({ mode }) => {
     : null
 
   return {
-    base: env.FIGMA_PUBLIC_URL ? `${env.FIGMA_PUBLIC_URL}/` : '/',
     envPrefix: ['VITE_'],
     build: {
       cssTarget: browserTargets,
